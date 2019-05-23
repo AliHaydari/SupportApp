@@ -184,6 +184,8 @@ namespace SupportApp.DataLayer.Context
                        .WithMany(category => category.Products);
             });
 
+            builder.AddCustomEntityMappings();
+
 
             // This should be placed here, at the end.
             builder.AddAuditableShadowProperties();

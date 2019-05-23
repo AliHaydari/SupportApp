@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.DependencyInjection;
+using SupportApp.Services.Contracts;
+using SupportApp.Services;
 
 namespace SupportApp.IocConfig
 {
@@ -67,6 +69,9 @@ namespace SupportApp.IocConfig
             services.AddScoped<IUsersPhotoService, UsersPhotoService>();
             services.AddScoped<ISecurityTrimmingService, SecurityTrimmingService>();
             services.AddScoped<IAppLogItemsService, AppLogItemsService>();
+
+            services.AddScoped<IProductService, EfProductService>();
+            services.AddScoped<IRequestTypeService, RequestTypeService>();
 
             return services;
         }
