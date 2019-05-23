@@ -1,0 +1,80 @@
+﻿@model IEnumerable<RequestTypeViewModel>
+
+@{
+    ViewData["Title"] = "مدیریت نوع درخواست ها";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <partial name="_List" model="Model" />
+    </div>
+    <footer class="card-footer">
+        <a class="btn btn-success" href="#" id="btnCreate">ایجاد یک نوع درخواست جدید</a>
+    </footer>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#btnCreate').click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("AddRequestType", "RequestTypes")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderRequestType", "RequestTypes")',
+                    renderModalPartialViewData: {},
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+            $("a[id^='btnEdit']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeId = $(this).data("edit-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("EditRequestType", "RequestTypes")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderRequestType", "RequestTypes")',
+                    renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+            $("a[id^='btnDelete']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Delete", "RequestTypes")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDeleteRequestType", "RequestTypes")',
+                    renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+        });
+    </script>
+}

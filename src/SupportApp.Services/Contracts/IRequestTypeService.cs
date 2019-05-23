@@ -10,9 +10,9 @@ namespace SupportApp.Services.Contracts
     {
         Task<List<RequestTypeViewModel>> GetAllAsync();
         Task<RequestTypeViewModel> GetByIdAsync(int id);
-        Task InsertAsync(RequestTypeViewModel viewModel);
-        Task UpdateAsync(int id, RequestTypeViewModel viewModel);
-        Task DeleteAsync(int id);
+        Task<bool> InsertAsync(RequestTypeViewModel viewModel);
+        Task<bool> UpdateAsync(RequestTypeViewModel viewModel);
+        Task<bool> DeleteAsync(int id);
         Task<bool> CheckExistAsync(int id);
         Task<bool> CheckExistNameAsync(int? id, string name);
     }

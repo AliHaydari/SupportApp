@@ -56,7 +56,7 @@ namespace SupportApp.Services
             return null;
         }
 
-        public async Task InsertAsync(RequestTypeViewModel viewModel)
+        public async Task<bool> InsertAsync(RequestTypeViewModel viewModel)
         {
             var entity = new RequestType()
             {
@@ -66,31 +66,38 @@ namespace SupportApp.Services
             };
 
             await _requestTypes.AddAsync(entity);
-            await _unitOfWork.SaveChangesAsync();
+            var result = await _unitOfWork.SaveChangesAsync();
+            return result != 0;
         }
 
-        public async Task UpdateAsync(int id, RequestTypeViewModel viewModel)
+        public async Task<bool> UpdateAsync(RequestTypeViewModel viewModel)
         {
-            var entity = await _requestTypes.FindAsync(id);
+            var entity = await _requestTypes.FindAsync(viewModel.Id);
 
             if (entity != null)
             {
                 entity.Name = viewModel.Name;
                 entity.Description = viewModel.Description;
 
-                await _unitOfWork.SaveChangesAsync();
+                var result = await _unitOfWork.SaveChangesAsync();
+                return result != 0;
             }
+
+            return await Task.FromResult(false);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var entity = await _requestTypes.FindAsync(id);
 
             if (entity != null)
             {
                 _requestTypes.Remove(entity);
-                await _unitOfWork.SaveChangesAsync();
+                var result = await _unitOfWork.SaveChangesAsync();
+                return result != 0;
             }
+
+            return await Task.FromResult(false);
         }
 
         public async Task<bool> CheckExistAsync(int id)
