@@ -1,0 +1,53 @@
+﻿@model SoftwareVersionViewModel
+
+@{
+    ViewData["Title"] = "ایجاد یک ورژن جدید";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <form asp-controller="SoftwareVersions"
+              asp-action="Create"
+              method="post"
+              enctype="multipart/form-data">
+            <partial name="_CustomValidationSummary" />
+            <div class="form-group row">
+                <label asp-for="Name" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <input dir="rtl" asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ReleaseNote" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <textarea dir="rtl" asp-for="ReleaseNote" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <textarea dir="rtl" asp-for="Description" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                    <button type="submit" class="btn btn-info col-md-2">ارسال</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function triggerRemoteValidation() {
+            $('#@nameof(SoftwareVersionViewModel.Name)').removeData('previousValue');
+            $('form').validate().element('#@nameof(SoftwareVersionViewModel.Name)');
+        }
+    </script>
+}

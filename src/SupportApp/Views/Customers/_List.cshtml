@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CustomerViewModel>
+
+<div class="table-responsive">
+    <table id="all-roles-list" class="table table-striped table-hover table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th class="text-center">نام و نام خانوادگی</th>
+                <th class="text-center">شماره مشتری</th>
+                <th class="text-center">ورژن برنامه</th>
+                <th class="text-center">تعداد کاربر</th>
+                <th class="text-center">تعداد شرکت</th>
+                <th class="text-center">تلفن</th>
+                <th class="text-center">پشتیبانی</th>
+                <th class="text-center w-25">عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="8" class="text-center">هیچ دیتایی یافت نشد</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">@item.FullName</td>
+                        <td class="text-center">@item.Number</td>
+                        <td class="text-center"><span><abbr title="@item.SoftwareVersionReleaseNote">@item.SoftwareVersionName</abbr></span></td>
+                        <td class="text-center">@item.AccountCount</td>
+                        <td class="text-center">@item.CompanyCount</td>
+                        <td class="text-center">@item.Tell</td>
+                        <td class="text-center">@item.SupportEndDate</td>
+                        <td class="text-center">
+                            <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="Customers" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
+                            <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

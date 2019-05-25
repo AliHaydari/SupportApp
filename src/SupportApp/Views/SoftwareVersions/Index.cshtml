@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SoftwareVersionViewModel>
+
+@{
+    ViewData["Title"] = "مدیریت ورژن ها";
+}
+
+<div class="card mt-5">
+
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <partial name="_List" model="Model" />
+    </div>
+    <footer class="card-footer">
+        <a class="btn btn-success" asp-controller="SoftwareVersions" asp-action="Create">
+            ایجاد یک ورژن جدید
+        </a>
+    </footer>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            $("a[id^='btnDelete']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Delete", "SoftwareVersions")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "SoftwareVersions")',
+                    renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+        });
+    </script>
+}

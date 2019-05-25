@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CustomerViewModel>
+
+@{
+    ViewData["Title"] = "مدیریت مشتری ها";
+}
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h5 class="card-title">@ViewData["Title"]</h5>
+    </div>
+    <div class="card-body">
+        <partial name="_List" model="Model" />
+    </div>
+    <footer class="card-footer">
+        <a class="btn btn-success" asp-controller="Customers" asp-action="Create">
+            ایجاد یک مشتری جدید
+        </a>
+    </footer>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            $("a[id^='btnDelete']").click(function (e) {
+                e.preventDefault(); //می‌خواهیم لینک به صورت معمول عمل نکند
+                var requestTypeId = $(this).data("delete-id");
+
+                $.bootstrapModalAjaxForm({
+                    postUrl: '@Url.Action("Delete", "Customers")',
+                    renderModalPartialViewUrl: '@Url.Action("RenderDelete", "Customers")',
+                    renderModalPartialViewData: JSON.stringify({ "id": requestTypeId }),
+                    loginUrl: '/identity/login',
+                    beforePostHandler: function () {
+                    },
+                    completeHandler: function () {
+                        location.reload();
+                    },
+                    errorHandler: function () {
+                    }
+                });
+            });
+
+        });
+    </script>
+}

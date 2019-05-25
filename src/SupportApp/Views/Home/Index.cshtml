@@ -6,3 +6,20 @@
     <a href="#" class="close" data-dismiss="alert">×</a>
     مثالی از نحوه‌ی سفارشی سازی ASP.NET Core Identity
 </div>
+
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <a class="btn btn-success" asp-controller="RequestTypes" asp-action="Index">
+            نوع درخواست ها
+        </a>
+
+        <a class="btn btn-success" asp-controller="Customers" asp-action="Index">
+            مشتری ها
+        </a>
+
+        <a class="btn btn-success" asp-controller="SoftwareVersions" asp-action="Index">
+            ورژن ها
+        </a>
+    }
+}

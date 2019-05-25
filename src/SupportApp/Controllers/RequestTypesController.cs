@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using DNTBreadCrumb.Core;
 using DNTCommon.Web.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SupportApp.Common.GuardToolkit;
 using SupportApp.Common.IdentityToolkit;
 using SupportApp.Services.Contracts;
+using SupportApp.Services.Identity;
 using SupportApp.ViewModels;
 using SupportApp.ViewModels.Identity;
 
 namespace SupportApp.Controllers
 {
+    [Authorize(Policy = ConstantPolicies.DynamicPermission)]
+    [BreadCrumb(UseDefaultRouteUrl = true, Order = 0)]
+    [DisplayName("مدیریت نوع درخواست ها")]
     public class RequestTypesController : Controller
     {
         private const string RequestTypeNotFound = "نوع درخواست درخواستی یافت نشد.";

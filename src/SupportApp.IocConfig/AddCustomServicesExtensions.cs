@@ -72,6 +72,8 @@ namespace SupportApp.IocConfig
 
             services.AddScoped<IProductService, EfProductService>();
             services.AddScoped<IRequestTypeService, RequestTypeService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ISoftwareVersionService, SoftwareVersionService>();
 
             return services;
         }

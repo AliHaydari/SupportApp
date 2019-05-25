@@ -31,5 +31,7 @@ namespace SupportApp.Entities
         public string Address { get; set; }
 
         public string Tell { get; set; }
+
+        public DateTimeOffset SupportEndDate { get; set; }
     }
 }
