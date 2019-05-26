@@ -32,8 +32,8 @@ namespace SupportApp.DataLayer.Mappings
                 build.Property(p => p.LockVersion).HasMaxLength(450).IsRequired();
                 build.Property(p => p.AccountCount).HasMaxLength(450).IsRequired();
                 build.Property(p => p.CompanyCount).HasMaxLength(450).IsRequired();
-                build.Property(p => p.Address).IsRequired();
-                build.Property(p => p.Tell).HasMaxLength(450).IsRequired();
+                build.Property(p => p.Address);
+                build.Property(p => p.Tell).HasMaxLength(450);
             });
         }
     }

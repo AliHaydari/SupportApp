@@ -58,13 +58,11 @@ namespace SupportApp.ViewModels
         [Display(Name = "تعداد شرکت")]
         public int CompanyCount { get; set; }
 
-        [Required(ErrorMessage = "(*)")]
         [Display(Name = "آدرس")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "(*)")]
         [Display(Name = "تلفن")]
-        [StringLength(450, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} حرف باشند.", MinimumLength = 2)]
+        [StringLength(450, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} حرف باشند.", MinimumLength = 10)]
         public string Tell { get; set; }
 
         public int DateOfSupportEndYear { set; get; }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SupportApp.DataLayer.Migrations
 {
-    public partial class AddSoftwareVersionRequestTypeCustomer : Migration
+    public partial class AddCustomerRequestTypeSoftwareVersion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,8 +67,9 @@ namespace SupportApp.DataLayer.Migrations
                     LockVersion = table.Column<string>(maxLength: 450, nullable: false),
                     AccountCount = table.Column<int>(maxLength: 450, nullable: false),
                     CompanyCount = table.Column<int>(maxLength: 450, nullable: false),
-                    Address = table.Column<string>(nullable: false),
-                    Tell = table.Column<string>(maxLength: 450, nullable: false),
+                    Address = table.Column<string>(nullable: true),
+                    Tell = table.Column<string>(maxLength: 450, nullable: true),
+                    SupportEndDate = table.Column<DateTimeOffset>(nullable: false),
                     CreatedByBrowserName = table.Column<string>(maxLength: 1000, nullable: true),
                     CreatedByIp = table.Column<string>(maxLength: 255, nullable: true),
                     CreatedByUserId = table.Column<int>(nullable: true),

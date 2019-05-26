@@ -10,8 +10,8 @@ using SupportApp.DataLayer.Context;
 namespace SupportApp.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190525060106_AddSupportEndDateToCustomer")]
-    partial class AddSupportEndDateToCustomer
+    [Migration("20190526070613_AddCustomerRequestTypeSoftwareVersion")]
+    partial class AddCustomerRequestTypeSoftwareVersion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,8 +68,7 @@ namespace SupportApp.DataLayer.Migrations
                     b.Property<int>("AccountCount")
                         .HasMaxLength(450);
 
-                    b.Property<string>("Address")
-                        .IsRequired();
+                    b.Property<string>("Address");
 
                     b.Property<int>("CompanyCount")
                         .HasMaxLength(450);
@@ -119,7 +118,6 @@ namespace SupportApp.DataLayer.Migrations
                     b.Property<DateTimeOffset>("SupportEndDate");
 
                     b.Property<string>("Tell")
-                        .IsRequired()
                         .HasMaxLength(450);
 
                     b.HasKey("Id");
