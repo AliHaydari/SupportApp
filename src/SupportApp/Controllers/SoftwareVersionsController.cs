@@ -130,11 +130,11 @@ namespace SupportApp.Controllers
                 return PartialView("_Delete");
             }
 
-            //if (await _softwareVersionService.CheckExistRelationAsync(softwareVersionViewModel.Id))
-            //{
-            //    ModelState.AddModelError("", SoftwareVersionNotFound);
-            //    return PartialView("_Used");
-            //}
+            if (await _softwareVersionService.CheckExistRelationAsync(softwareVersionViewModel.Id))
+            {
+                ModelState.AddModelError("", SoftwareVersionNotFound);
+                return PartialView("_Used");
+            }
 
             return PartialView("_Delete", model: softwareVersionViewModel);
         }

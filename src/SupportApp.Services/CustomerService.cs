@@ -172,5 +172,15 @@ namespace SupportApp.Services
                 : await _customers.AnyAsync(p => p.Id != id && p.Number == number);
         }
 
+        public async Task<bool> CheckExistRelationAsync(int id)
+        {
+            //var result = await _customers
+            //    .Include(p => p.Customers)
+            //    .Where(p => p.Id == id)
+            //    .AnyAsync(p => p.Customers.Any());
+
+            return await Task.FromResult(false);
+        }
+
     }
 }

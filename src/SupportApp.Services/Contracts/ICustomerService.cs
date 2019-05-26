@@ -15,5 +15,6 @@ namespace SupportApp.Services.Contracts
         Task<bool> DeleteAsync(int id);
         Task<bool> CheckExistAsync(int id);
         Task<bool> CheckExistNumberAsync(int? id, string number);
+        Task<bool> CheckExistRelationAsync(int id);
     }
 }

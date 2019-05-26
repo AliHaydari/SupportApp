@@ -115,7 +115,12 @@ namespace SupportApp.Services
 
         public async Task<bool> CheckExistRelationAsync(int id)
         {
-            return await Task.FromResult(true);
+            var result = await _softwareVersions
+                .Include(p => p.Customers)
+                .Where(p => p.Id == id)
+                .AnyAsync(p => p.Customers.Any());
+
+            return await Task.FromResult(result);
         }
 
     }

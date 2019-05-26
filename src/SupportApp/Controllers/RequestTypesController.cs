@@ -119,6 +119,12 @@ namespace SupportApp.Controllers
                 return PartialView("_Delete");
             }
 
+            if (await _requestTypeService.CheckExistRelationAsync(requestTypeViewModel.Id))
+            {
+                ModelState.AddModelError("", RequestTypeNotFound);
+                return PartialView("_Used");
+            }
+
             return PartialView("_Delete", model: requestTypeViewModel);
         }
 

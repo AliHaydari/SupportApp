@@ -145,14 +145,20 @@ namespace SupportApp.Controllers
                 return PartialView("_Delete");
             }
 
-            var requestTypeViewModel = await _customerService.GetByIdAsync(Convert.ToInt32(model.Id));
-            if (requestTypeViewModel == null)
+            var customerViewModel = await _customerService.GetByIdAsync(Convert.ToInt32(model.Id));
+            if (customerViewModel == null)
             {
                 ModelState.AddModelError("", CustomerNotFound);
                 return PartialView("_Delete");
             }
 
-            return PartialView("_Delete", model: requestTypeViewModel);
+            if (await _customerService.CheckExistRelationAsync(customerViewModel.Id))
+            {
+                ModelState.AddModelError("", CustomerNotFound);
+                return PartialView("_Used");
+            }
+
+            return PartialView("_Delete", model: customerViewModel);
         }
 
         [AjaxOnly]
@@ -160,14 +166,14 @@ namespace SupportApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(CustomerViewModel viewModel)
         {
-            var requestTypeViewModel = await _customerService.GetByIdAsync(viewModel.Id);
-            if (requestTypeViewModel == null)
+            var customerViewModel = await _customerService.GetByIdAsync(viewModel.Id);
+            if (customerViewModel == null)
             {
                 ModelState.AddModelError("", CustomerNotFound);
             }
             else
             {
-                var result = await _customerService.DeleteAsync(requestTypeViewModel.Id);
+                var result = await _customerService.DeleteAsync(customerViewModel.Id);
                 if (result)
                 {
                     return Json(new { success = true });
