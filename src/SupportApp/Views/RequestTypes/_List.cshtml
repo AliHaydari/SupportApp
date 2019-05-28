@@ -24,8 +24,12 @@
                 <td class="text-center">@item.Name</td>
                 <td class="text-center">@item.Description</td>
                 <td class="text-center">
-                    <a href="#" id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary">ویرایش</a>
-                    <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
+                    <security-trimming asp-area="" asp-controller="RequestTypes" asp-action="RenderRequestType">
+                        <a href="#" id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary">ویرایش</a>
+                    </security-trimming>
+                    <security-trimming asp-area="" asp-controller="RequestTypes" asp-action="RenderDeleteRequestType">
+                        <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
+                    </security-trimming>
                 </td>
             </tr>
         }

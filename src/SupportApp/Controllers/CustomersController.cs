@@ -46,9 +46,9 @@ namespace SupportApp.Controllers
         }
 
         [HttpGet]
-        [DisplayName("ایجاد یک مشتری جدید")]
+        [DisplayName("نمایش فرم ایجاد یک مشتری جدید")]
         [BreadCrumb(Order = 1)]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> RenderCreate()
         {
             var pDate = DateTime.Now.ToPersianYearMonthDay();
             var viewModel = new CustomerViewModel()
@@ -60,10 +60,11 @@ namespace SupportApp.Controllers
 
             await PopulateSoftwareVersionsAsync(null);
 
-            return View(viewModel);
+            return View("Create", viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [DisplayName("ایجاد یک مشتری جدید")]
         public async Task<IActionResult> Create(CustomerViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -90,15 +91,15 @@ namespace SupportApp.Controllers
         }
 
         [HttpGet]
-        [DisplayName("ویرایش مشتری")]
+        [DisplayName("نمایش فرم ویرایش مشتری")]
         [BreadCrumb(Order = 1)]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> RenderEdit(int? id)
         {
             if (!id.HasValue)
             {
                 return NotFound();
             }
-            
+
             var viewModel = await _customerService.GetByIdAsync(id.GetValueOrDefault());
 
             if (viewModel == null)
@@ -108,10 +109,11 @@ namespace SupportApp.Controllers
 
             await PopulateSoftwareVersionsAsync(viewModel.SoftwareVersionId);
 
-            return View(viewModel);
+            return View("Edit", viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [DisplayName("ویرایش مشتری")]
         public async Task<IActionResult> Edit(CustomerViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -138,6 +140,7 @@ namespace SupportApp.Controllers
         }
 
         [AjaxOnly]
+        [DisplayName("نمایش فرم حذف مشتری")]
         public async Task<IActionResult> RenderDelete([FromBody]ModelIdViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model?.Id))
@@ -164,6 +167,7 @@ namespace SupportApp.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [DisplayName("حذف مشتری")]
         public async Task<IActionResult> Delete(CustomerViewModel viewModel)
         {
             var customerViewModel = await _customerService.GetByIdAsync(viewModel.Id);
@@ -198,6 +202,7 @@ namespace SupportApp.Controllers
         /// For [Remote] validation
         /// </summary>
         [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
+        [DisplayName("اعتبار سنجی شماره مشتری")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ValidateNumber(string number, int id)
         {

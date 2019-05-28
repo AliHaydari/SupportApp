@@ -34,8 +34,12 @@
                         <td class="text-center">@item.Tell</td>
                         <td class="text-center">@item.SupportEndDate</td>
                         <td class="text-center">
-                            <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="Customers" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
-                            <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
+                            <security-trimming asp-area="" asp-controller="Customers" asp-action="RenderEdit">
+                                <a id="btnEdit-@item.Id" data-edit-id="@item.Id" class="btn btn-sm btn-primary" asp-controller="Customers" asp-action="RenderEdit" asp-route-id="@item.Id">ویرایش</a>
+                            </security-trimming>
+                            <security-trimming asp-area="" asp-controller="Customers" asp-action="RenderDelete">
+                                <a href="#" id="btnDelete-@item.Id" data-delete-id="@item.Id" class="btn btn-sm btn-danger">حذف</a>
+                            </security-trimming>
                         </td>
                     </tr>
                 }

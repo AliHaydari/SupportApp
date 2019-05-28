@@ -31,7 +31,18 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="submit">ثبت</button>
+                @if (Model.Id == 0)
+                {
+                    <security-trimming asp-area="" asp-controller="RequestTypes" asp-action="AddRequestType">
+                        <button class="btn btn-primary" type="submit">ثبت</button>
+                    </security-trimming>
+                }
+                else
+                {
+                    <security-trimming asp-area="" asp-controller="RequestTypes" asp-action="EditRequestType">
+                        <button class="btn btn-primary" type="submit">ثبت</button>
+                    </security-trimming>
+                }
                 <button class="btn" data-dismiss="modal" aria-hidden="true">انصراف</button>
             </div>
         </div>

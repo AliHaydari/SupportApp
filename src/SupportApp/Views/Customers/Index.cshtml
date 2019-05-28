@@ -14,9 +14,11 @@
         <partial name="_List" model="Model" />
     </div>
     <footer class="card-footer">
-        <a class="btn btn-success" asp-controller="Customers" asp-action="Create">
-            ایجاد یک مشتری جدید
-        </a>
+        <security-trimming asp-area="" asp-controller="Customers" asp-action="RenderCreate">
+            <a class="btn btn-success" asp-controller="Customers" asp-action="RenderCreate">
+                ایجاد یک مشتری جدید
+            </a>
+        </security-trimming>
     </footer>
 </div>
 

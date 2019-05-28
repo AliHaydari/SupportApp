@@ -41,15 +41,16 @@ namespace SupportApp.Controllers
         }
 
         [HttpGet]
-        [DisplayName("ایجاد یک ورژن جدید")]
+        [DisplayName("نمایش فرم ورژن جدید")]
         [BreadCrumb(Order = 1)]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> RenderCreate()
         {
             var viewModel = new SoftwareVersionViewModel();
-            return View(viewModel);
+            return View("Create", viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [DisplayName("ایجاد یک ورژن جدید")]
         public async Task<IActionResult> Create(SoftwareVersionViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -73,9 +74,9 @@ namespace SupportApp.Controllers
         }
 
         [HttpGet]
-        [DisplayName("ویرایش ورژن")]
+        [DisplayName("نمایش فرم ویرایش ورژن")]
         [BreadCrumb(Order = 1)]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> RenderEdit(int? id)
         {
             if (!id.HasValue)
             {
@@ -89,10 +90,11 @@ namespace SupportApp.Controllers
                 return NotFound();
             }
 
-            return View(viewModel);
+            return View("Edit", viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [DisplayName("ویرایش ورژن")]
         public async Task<IActionResult> Edit(SoftwareVersionViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -116,6 +118,7 @@ namespace SupportApp.Controllers
         }
 
         [AjaxOnly]
+        [DisplayName("نمایش فرم حذف ورژن")]
         public async Task<IActionResult> RenderDelete([FromBody]ModelIdViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model?.Id))
@@ -142,6 +145,7 @@ namespace SupportApp.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [DisplayName("حذف ورژن")]
         public async Task<IActionResult> Delete(SoftwareVersionViewModel viewModel)
         {
             var softwareVersionViewModel = await _softwareVersionService.GetByIdAsync(viewModel.Id);
@@ -167,6 +171,7 @@ namespace SupportApp.Controllers
         /// For [Remote] validation
         /// </summary>
         [AjaxOnly, HttpPost, ValidateAntiForgeryToken]
+        [DisplayName("اعتبار سنجی نام")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ValidateName(string name, int id)
         {

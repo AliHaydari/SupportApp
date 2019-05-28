@@ -34,6 +34,7 @@ namespace SupportApp.Controllers
         }
 
         [BreadCrumb(Title = "ایندکس", Order = 1)]
+        [DisplayName("ایندکس")]
         public async Task<IActionResult> Index()
         {
             var requestTypeViewModels = await _requestTypeService.GetAllAsync();
@@ -41,6 +42,7 @@ namespace SupportApp.Controllers
         }
 
         [AjaxOnly]
+        [DisplayName("نمایش فرم نوع درخواست ها")]
         public async Task<IActionResult> RenderRequestType([FromBody]ModelIdViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model?.Id))
@@ -61,6 +63,7 @@ namespace SupportApp.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [DisplayName("ویرایش نوع درخواست")]
         public async Task<IActionResult> EditRequestType(RequestTypeViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -88,6 +91,7 @@ namespace SupportApp.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [DisplayName("ایجاد یک نوع درخواست جدید")]
         public async Task<IActionResult> AddRequestType(RequestTypeViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -105,6 +109,7 @@ namespace SupportApp.Controllers
         }
 
         [AjaxOnly]
+        [DisplayName("نمایش فرم حذف نوع درخواست")]
         public async Task<IActionResult> RenderDeleteRequestType([FromBody]ModelIdViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model?.Id))
@@ -131,6 +136,7 @@ namespace SupportApp.Controllers
         [AjaxOnly]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [DisplayName("حذف نوع درخواست")]
         public async Task<IActionResult> Delete(RequestTypeViewModel viewModel)
         {
             var requestTypeViewModel = await _requestTypeService.GetByIdAsync(viewModel.Id);

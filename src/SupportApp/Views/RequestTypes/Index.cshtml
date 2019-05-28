@@ -14,7 +14,10 @@
         <partial name="_List" model="Model" />
     </div>
     <footer class="card-footer">
-        <a class="btn btn-success" href="#" id="btnCreate">ایجاد یک نوع درخواست جدید</a>
+        
+        <security-trimming asp-area="" asp-controller="RequestTypes" asp-action="RenderRequestType">
+            <a class="btn btn-success" href="#" id="btnCreate">ایجاد یک نوع درخواست جدید</a>
+        </security-trimming>
     </footer>
 </div>
 
