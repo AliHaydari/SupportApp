@@ -89,9 +89,7 @@ namespace SupportApp.DataLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(450);
 
-                    b.Property<string>("LockVersion")
-                        .IsRequired()
-                        .HasMaxLength(450);
+                    b.Property<int>("LockVersionId");
 
                     b.Property<string>("ModifiedByBrowserName")
                         .HasMaxLength(1000);
@@ -120,9 +118,11 @@ namespace SupportApp.DataLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LockVersionId");
+
                     b.HasIndex("SoftwareVersionId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("SupportApp.Entities.Identity.AppDataProtectionKey", b =>
@@ -570,6 +570,43 @@ namespace SupportApp.DataLayer.Migrations
                     b.ToTable("AppUserUsedPasswords");
                 });
 
+            modelBuilder.Entity("SupportApp.Entities.LockVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedByBrowserName")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("CreatedByIp")
+                        .HasMaxLength(255);
+
+                    b.Property<int?>("CreatedByUserId");
+
+                    b.Property<DateTimeOffset?>("CreatedDateTime");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ModifiedByBrowserName")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("ModifiedByIp")
+                        .HasMaxLength(255);
+
+                    b.Property<int?>("ModifiedByUserId");
+
+                    b.Property<DateTimeOffset?>("ModifiedDateTime");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(450);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LockVersions");
+                });
+
             modelBuilder.Entity("SupportApp.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -645,7 +682,7 @@ namespace SupportApp.DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RequestType");
+                    b.ToTable("RequestTypes");
                 });
 
             modelBuilder.Entity("SupportApp.Entities.SoftwareVersion", b =>
@@ -684,11 +721,16 @@ namespace SupportApp.DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SoftwareVersion");
+                    b.ToTable("SoftwareVersions");
                 });
 
             modelBuilder.Entity("SupportApp.Entities.Customer", b =>
                 {
+                    b.HasOne("SupportApp.Entities.LockVersion", "LockVersion")
+                        .WithMany("Customers")
+                        .HasForeignKey("LockVersionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("SupportApp.Entities.SoftwareVersion", "SoftwareVersion")
                         .WithMany("Customers")
                         .HasForeignKey("SoftwareVersionId")

@@ -32,6 +32,7 @@ namespace SupportApp.Services
         {
             return await _customers
                 .Include(p => p.SoftwareVersion)
+                .Include(p => p.LockVersion)
                 .Select(p => new CustomerViewModel()
                 {
                     Id = p.Id,
@@ -42,7 +43,8 @@ namespace SupportApp.Services
                     SoftwareVersionName = p.SoftwareVersion.Name,
                     SoftwareVersionReleaseNote = p.SoftwareVersion.ReleaseNote,
                     LockNumber = p.LockNumber,
-                    LockVersion = p.LockVersion,
+                    LockVersionId = p.LockVersionId,
+                    LockVersionName = p.LockVersion.Name,
                     AccountCount = p.AccountCount,
                     CompanyCount = p.CompanyCount,
                     Address = p.Address,
@@ -59,6 +61,7 @@ namespace SupportApp.Services
         {
             var entity = await _customers
                 .Include(p => p.SoftwareVersion)
+                .Include(p => p.LockVersion)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (entity != null)
@@ -74,7 +77,8 @@ namespace SupportApp.Services
                     SoftwareVersionName = entity.SoftwareVersion.Name,
                     SoftwareVersionReleaseNote = entity.SoftwareVersion.ReleaseNote,
                     LockNumber = entity.LockNumber,
-                    LockVersion = entity.LockVersion,
+                    LockVersionId = entity.LockVersionId,
+                    LockVersionName = entity.LockVersion.Name,
                     AccountCount = entity.AccountCount,
                     CompanyCount = entity.CompanyCount,
                     Address = entity.Address,
@@ -103,7 +107,7 @@ namespace SupportApp.Services
                 Family = viewModel.Family,
                 SoftwareVersionId = viewModel.SoftwareVersionId,
                 LockNumber = viewModel.LockNumber,
-                LockVersion = viewModel.LockVersion,
+                LockVersionId = viewModel.LockVersionId,
                 AccountCount = viewModel.AccountCount,
                 CompanyCount = viewModel.CompanyCount,
                 Address = viewModel.Address,
@@ -132,7 +136,7 @@ namespace SupportApp.Services
                 entity.Family = viewModel.Family;
                 entity.SoftwareVersionId = viewModel.SoftwareVersionId;
                 entity.LockNumber = viewModel.LockNumber;
-                entity.LockVersion = viewModel.LockVersion;
+                entity.LockVersionId = viewModel.LockVersionId;
                 entity.AccountCount = viewModel.AccountCount;
                 entity.CompanyCount = viewModel.CompanyCount;
                 entity.Address = viewModel.Address;

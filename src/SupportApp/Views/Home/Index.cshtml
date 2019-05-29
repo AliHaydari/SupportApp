@@ -24,7 +24,13 @@
 
         <security-trimming asp-area="" asp-controller="SoftwareVersions" asp-action="Index">
             <a class="btn btn-success" asp-controller="SoftwareVersions" asp-action="Index">
-                ورژن ها
+                ورژن های برنامه
+            </a>
+        </security-trimming>
+
+        <security-trimming asp-area="" asp-controller="LockVersions" asp-action="Index">
+            <a class="btn btn-success" asp-controller="LockVersions" asp-action="Index">
+                ورژن های قفل
             </a>
         </security-trimming>
     }

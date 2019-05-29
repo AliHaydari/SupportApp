@@ -158,6 +158,10 @@ namespace SupportApp.DataLayer.Context
 
         public virtual DbSet<Category> Categories { set; get; }
         public virtual DbSet<Product> Products { set; get; }
+        public virtual DbSet<SoftwareVersion> SoftwareVersions { set; get; }
+        public virtual DbSet<RequestType> RequestTypes { set; get; }
+        public virtual DbSet<Customer> Customers { set; get; }
+        public virtual DbSet<LockVersion> LockVersions { set; get; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

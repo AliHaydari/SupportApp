@@ -25,16 +25,20 @@ namespace SupportApp.Controllers
     {
         private readonly ICustomerService _customerService;
         private readonly ISoftwareVersionService _softwareVersionService;
+        private readonly ILockVersionService _lockVersionService;
 
         private const string CustomerNotFound = "مشتری درخواستی یافت نشد.";
 
-        public CustomersController(ICustomerService customerService, ISoftwareVersionService softwareVersionService)
+        public CustomersController(ICustomerService customerService, ISoftwareVersionService softwareVersionService, ILockVersionService lockVersionService)
         {
             _customerService = customerService;
             _customerService.CheckArgumentIsNull(nameof(_customerService));
 
             _softwareVersionService = softwareVersionService;
             _softwareVersionService.CheckArgumentIsNull(nameof(_softwareVersionService));
+
+            _lockVersionService = lockVersionService;
+            _lockVersionService.CheckArgumentIsNull(nameof(_lockVersionService));
         }
 
         [DisplayName("ایندکس")]
@@ -59,6 +63,7 @@ namespace SupportApp.Controllers
             };
 
             await PopulateSoftwareVersionsAsync(null);
+            await PopulateLockVersionsAsync(null);
 
             return View("Create", viewModel);
         }
@@ -73,6 +78,7 @@ namespace SupportApp.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.Number), "شماره مشتری وارد شده تکراری است");
                     await PopulateSoftwareVersionsAsync(viewModel.SoftwareVersionId);
+                    await PopulateLockVersionsAsync(viewModel.LockVersionId);
                     return View(viewModel);
                 }
 
@@ -83,10 +89,12 @@ namespace SupportApp.Controllers
                 }
 
                 await PopulateSoftwareVersionsAsync(viewModel.SoftwareVersionId);
+                await PopulateLockVersionsAsync(viewModel.LockVersionId);
                 return View(viewModel);
             }
 
             await PopulateSoftwareVersionsAsync(viewModel.SoftwareVersionId);
+            await PopulateLockVersionsAsync(viewModel.LockVersionId);
             return View(viewModel);
         }
 
@@ -108,6 +116,7 @@ namespace SupportApp.Controllers
             }
 
             await PopulateSoftwareVersionsAsync(viewModel.SoftwareVersionId);
+            await PopulateLockVersionsAsync(viewModel.LockVersionId);
 
             return View("Edit", viewModel);
         }
@@ -122,6 +131,7 @@ namespace SupportApp.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.Number), "شماره مشتری وارد شده تکراری است");
                     await PopulateSoftwareVersionsAsync(viewModel.SoftwareVersionId);
+                    await PopulateLockVersionsAsync(viewModel.LockVersionId);
                     return View(viewModel);
                 }
 
@@ -132,10 +142,12 @@ namespace SupportApp.Controllers
                 }
 
                 await PopulateSoftwareVersionsAsync(viewModel.SoftwareVersionId);
+                await PopulateLockVersionsAsync(viewModel.LockVersionId);
                 return View(viewModel);
             }
 
             await PopulateSoftwareVersionsAsync(viewModel.SoftwareVersionId);
+            await PopulateLockVersionsAsync(viewModel.LockVersionId);
             return View(viewModel);
         }
 
@@ -193,9 +205,24 @@ namespace SupportApp.Controllers
         {
             var data = await _softwareVersionService.GetAllAsync();
 
-            var selectList = new SelectList(data, nameof(SoftwareVersionViewModel.Id), nameof(SoftwareVersionViewModel.Name), softwareVersionId.GetValueOrDefault());
+            var selectList = new SelectList(data,
+                nameof(SoftwareVersionViewModel.Id),
+                nameof(SoftwareVersionViewModel.Name),
+                softwareVersionId.GetValueOrDefault());
 
             ViewBag.PopulateSoftwareVersions = selectList;
+        }
+
+        private async Task PopulateLockVersionsAsync(int? lockVersionId)
+        {
+            var data = await _lockVersionService.GetAllAsync();
+
+            var selectList = new SelectList(data,
+                nameof(LockVersionViewModel.Id),
+                nameof(SoftwareVersionViewModel.Name),
+                lockVersionId.GetValueOrDefault());
+
+            ViewBag.PopulateLockVersions = selectList;
         }
 
         /// <summary>

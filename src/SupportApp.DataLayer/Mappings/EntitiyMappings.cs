@@ -28,12 +28,18 @@ namespace SupportApp.DataLayer.Mappings
                 build.Ignore(p => p.FullName);
                 build.HasOne(p => p.SoftwareVersion)
                     .WithMany(p => p.Customers);
+                build.HasOne(p => p.LockVersion)
+                    .WithMany(p => p.Customers);
                 build.Property(p => p.LockNumber).HasMaxLength(450).IsRequired();
-                build.Property(p => p.LockVersion).HasMaxLength(450).IsRequired();
                 build.Property(p => p.AccountCount).HasMaxLength(450).IsRequired();
                 build.Property(p => p.CompanyCount).HasMaxLength(450).IsRequired();
                 build.Property(p => p.Address);
                 build.Property(p => p.Tell).HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<LockVersion>(build =>
+            {
+                build.Property(p => p.Name).HasMaxLength(450).IsRequired();
             });
         }
     }

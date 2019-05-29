@@ -7,6 +7,7 @@
                 <th class="text-center">نام و نام خانوادگی</th>
                 <th class="text-center">شماره مشتری</th>
                 <th class="text-center">ورژن برنامه</th>
+                <th class="text-center">ورژن قفل</th>
                 <th class="text-center">تعداد کاربر</th>
                 <th class="text-center">تعداد شرکت</th>
                 <th class="text-center">تلفن</th>
@@ -18,7 +19,7 @@
             @if (!Model.Any())
             {
                 <tr>
-                    <td colspan="8" class="text-center">هیچ دیتایی یافت نشد</td>
+                    <td colspan="9" class="text-center">هیچ دیتایی یافت نشد</td>
                 </tr>
             }
             else
@@ -29,6 +30,7 @@
                         <td class="text-center">@item.FullName</td>
                         <td class="text-center">@item.Number</td>
                         <td class="text-center"><span><abbr title="@item.SoftwareVersionReleaseNote">@item.SoftwareVersionName</abbr></span></td>
+                        <td class="text-center">@item.LockVersionName</td>
                         <td class="text-center">@item.AccountCount</td>
                         <td class="text-center">@item.CompanyCount</td>
                         <td class="text-center">@item.Tell</td>

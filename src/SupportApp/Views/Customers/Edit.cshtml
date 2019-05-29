@@ -46,17 +46,20 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label asp-for="LockVersionId" class="col-md-2 col-form-label text-md-left"></label>
+                <div class="col-md-10">
+                    <select asp-for="LockVersionId" class="form-control"
+                            asp-items="@ViewBag.PopulateLockVersions">
+                        <option value="">-- انتخاب --</option>
+                    </select>
+                    <span asp-validation-for="LockVersionId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label asp-for="LockNumber" class="col-md-2 col-form-label text-md-left"></label>
                 <div class="col-md-10">
                     <input dir="ltr" asp-for="LockNumber" class="form-control" />
                     <span asp-validation-for="LockNumber" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="LockVersion" class="col-md-2 col-form-label text-md-left"></label>
-                <div class="col-md-10">
-                    <input dir="ltr" asp-for="LockVersion" class="form-control" />
-                    <span asp-validation-for="LockVersion" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">

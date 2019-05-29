@@ -20,9 +20,10 @@ namespace SupportApp.Entities
         public virtual SoftwareVersion SoftwareVersion { get; set; }
         public int SoftwareVersionId { get; set; }
 
-        public string LockNumber { get; set; }
+        public virtual LockVersion LockVersion { get; set; }
+        public int LockVersionId { get; set; }
 
-        public string LockVersion { get; set; }
+        public string LockNumber { get; set; }
 
         public int AccountCount { get; set; }
 

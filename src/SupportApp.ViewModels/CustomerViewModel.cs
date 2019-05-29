@@ -41,14 +41,15 @@ namespace SupportApp.ViewModels
         public string SoftwareVersionReleaseNote { get; set; }
 
         [Required(ErrorMessage = "(*)")]
+        [Display(Name = "ورژن قفل")]
+        public int LockVersionId { get; set; }
+
+        public string LockVersionName { get; set; }
+
+        [Required(ErrorMessage = "(*)")]
         [Display(Name = "شماره قفل")]
         [StringLength(450, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} حرف باشند.", MinimumLength = 2)]
         public string LockNumber { get; set; }
-
-        [Required(ErrorMessage = "(*)")]
-        [Display(Name = "ورژن قفل")]
-        [StringLength(450, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} حرف باشند.", MinimumLength = 2)]
-        public string LockVersion { get; set; }
 
         [Required(ErrorMessage = "(*)")]
         [Display(Name = "تعداد کاربر")]
