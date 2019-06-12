@@ -12,7 +12,7 @@ namespace SupportApp.ViewModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "(*)")]
-        [Display(Name = "نام کاربری")]
+        [Display(Name = "نام")]
         [StringLength(450, ErrorMessage = "{0} باید حداقل {2} و حداکثر {1} حرف باشند.", MinimumLength = 2)]
         public string Name { get; set; }
 
